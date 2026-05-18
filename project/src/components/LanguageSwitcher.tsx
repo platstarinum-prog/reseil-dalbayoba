@@ -1,12 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const LANGS = [
-  { code: 'uk', label: 'УКР', flag: '\u{1F1FA}\u{1F1E6}' },
-  { code: 'ru', label: 'РУС', flag: '\u{1F1F7}\u{1F1FA}' },
+  { code: 'uk', label: 'УКР', flag: '🇺🇦' },
+  { code: 'ru', label: 'РУС', flag: '🇷🇺' },
 ];
 
 export default function LanguageSwitcher() {
-  const [active, setActive] = useState('uk');
+  // Берём начальный язык из localStorage или ставим 'uk' по дефолту
+  const [active, setActive] = useState(() => localStorage.getItem('lang') || 'uk');
+
+  const handleLangChange = (code: string) => {
+    localStorage.setItem('lang', code);
+    setActive(code);
+    // Триггерим событие, чтобы страницы мгновенно узнали о смене языка
+    window.dispatchEvent(new Event('languageChange'));
+  };
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -14,8 +22,9 @@ export default function LanguageSwitcher() {
         {LANGS.map(lang => (
           <button
             key={lang.code}
-            onClick={() => setActive(lang.code)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-200 ${
+            type="button"
+            onClick={() => handleLangChange(lang.code)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-200 cursor-pointer ${
               active === lang.code
                 ? 'bg-zinc-900 text-white'
                 : 'text-zinc-500 hover:text-zinc-300'
