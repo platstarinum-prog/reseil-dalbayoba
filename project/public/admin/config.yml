@@ -6,38 +6,36 @@ media_folder: "public/uploads"
 public_folder: "/uploads"
 
 collections:
+  # 1. КАТАЛОГ ТОВАРОВ (ПОД ТВОЮ ПАПКУ В SRC)
+  - name: "products"
+    label: "Каталог товарів"
+    folder: "src/data/products" # Путь ровно как на твоем скриншоте
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{fields.id}}" # Имя файла будет создаваться по ID товара (например: yeezy-700.json)
+    summary: "{{fields.brand}} - {{fields.name}}"
+    fields:
+      - { name: "id", label: "ID / Имя файла (без .json)", widget: "string" }
+      - { name: "name", label: "Назва товару", widget: "string" }
+      - { name: "brand", label: "Бренд", widget: "string" }
+      - { name: "price", label: "Ціна (грн)", widget: "number", value_type: "int" }
+      - name: "category"
+        label: "Категорія"
+        widget: "select"
+        options: ["Одяг", "Взуття", "Аксесуари"]
+      - { name: "sizes", label: "Розміри", widget: "string" }
+      - name: "condition"
+        label: "Стан", widget: "select", options: ["Відмінний", "Б/У"]
+      - { name: "seller_tg", label: "Telegram менеджера (без @)", widget: "string" }
+      - { name: "imageUrl", label: "Фото товару", widget: "image" }
+      - { name: "sold", label: "Товар продано?", widget: "boolean", default: false }
+
+  # 2. ОСТАЛЬНЫЕ СТРАНИЦЫ (Хранятся в public/data)
   - name: "site_content"
-    label: "Контент сайту"
+    label: "Контент сторінок"
     delete: false
     files:
-      # 1. КАТАЛОГ
-      - name: "products_file"
-        label: "Каталог товарів"
-        file: "public/data/products.json"
-        fields:
-          - name: "products"
-            label: "Список усіх товарів"
-            widget: "list"
-            required: false
-            fields:
-              - { name: "id", label: "ID", widget: "string" }
-              - { name: "name", label: "Назва", widget: "string" }
-              - { name: "brand", label: "Бренд", widget: "string" }
-              - { name: "price", label: "Ціна (грн)", widget: "number", value_type: "int" }
-              - name: "category"
-                label: "Категорія"
-                widget: "select"
-                options: ["Одяг", "Взуття", "Аксесуари"]
-              - { name: "sizes", label: "Розміри", widget: "string" }
-              - name: "condition"
-                label: "Стан"
-                widget: "select"
-                options: ["Відмінний", "Б/У"]
-              - { name: "seller_tg", label: "Telegram менеджера (без @)", widget: "string" }
-              - { name: "imageUrl", label: "Фото товару", widget: "image" }
-              - { name: "sold", label: "Продано?", widget: "boolean", default: false }
-
-      # 2. ГОЛОВНА СТОРІНКА
       - name: "home_page"
         label: "Головна сторінка"
         file: "public/data/home.json"
@@ -46,7 +44,6 @@ collections:
           - { name: "heroSubtitle", label: "Підзаголовок сайту", widget: "text" }
           - { name: "ctaText", label: "Текст кнопки", widget: "string" }
 
-      # 3. ВІДГУКИ
       - name: "reviews_file"
         label: "Сторінка відгуків"
         file: "public/data/reviews.json"
@@ -54,13 +51,11 @@ collections:
           - name: "reviews"
             label: "Список відгуків"
             widget: "list"
-            required: false
             fields:
               - { name: "author", label: "Ім'я", widget: "string" }
               - { name: "item", label: "Товар", widget: "string" }
               - { name: "text", label: "Відгук", widget: "text" }
 
-      # 4. FAQ
       - name: "faq_file"
         label: "Сторінка FAQ"
         file: "public/data/faq.json"
@@ -68,7 +63,6 @@ collections:
           - name: "faq"
             label: "Список питань"
             widget: "list"
-            required: false
             fields:
               - { name: "question", label: "Питання", widget: "string" }
               - { name: "answer", label: "Відповідь", widget: "text" }
