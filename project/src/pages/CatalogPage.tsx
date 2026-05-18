@@ -7,16 +7,15 @@ export default function CatalogPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/data/products.json')
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Помилка завантаження товарів:', err);
-        setLoading(false);
-      });
+    // Автоматически импортируем все JSON файлы из твоей родной папки в src
+    const modules = import.meta.glob('../data/products/*.json', { eager: true });
+    
+    const loadedProducts = Object.values(modules).map((mod: any) => {
+      return mod.default ? mod.default : mod;
+    });
+
+    setProducts(loadedProducts);
+    setLoading(false);
   }, []);
 
   if (loading) {
