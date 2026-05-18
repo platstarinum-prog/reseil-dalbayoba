@@ -1,40 +1,27 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-interface LangContent {
+interface HomeContent {
   heroTitle: string;
   heroSubtitle: string;
   ctaText: string;
 }
 
-interface HomeData {
-  uk: LangContent;
-  ru: LangContent;
-}
-
 export default function HomePage() {
-  const [allContent, setAllContent] = useState<HomeData | null>(null);
-  const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'uk');
+  const [content, setContent] = useState<HomeContent | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/data/home.json')
+    fetch('/data/home.json', { cache: 'no-store' })
       .then((res) => res.json())
       .then((data) => {
-        setAllContent(data);
+        setContent(data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Помилка завантаження контенту:', err);
+        console.error('Помилка завантаження головної сторінки:', err);
         setLoading(false);
       });
-
-    const handleLangUpdate = () => {
-      setLang(localStorage.getItem('lang') || 'uk');
-    };
-
-    window.addEventListener('languageChange', handleLangUpdate);
-    return () => window.removeEventListener('languageChange', handleLangUpdate);
   }, []);
 
   if (loading) {
@@ -47,8 +34,6 @@ export default function HomePage() {
     );
   }
 
-  const currentContent = allContent ? allContent[lang as 'uk' | 'ru'] : null;
-
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center text-center px-6 selection:bg-white selection:text-black">
       <div className="max-w-3xl">
@@ -56,16 +41,16 @@ export default function HomePage() {
           WELCOME TO 5AM
         </p>
         <h1 className="text-white font-black text-5xl md:text-8xl tracking-tighter uppercase leading-none mb-6">
-          {currentContent?.heroTitle || '5AM STORE'}
+          {content?.heroTitle || '5AM STORE'}
         </h1>
         <p className="text-zinc-400 text-sm md:text-base font-medium max-w-md mx-auto mb-10 leading-relaxed">
-          {currentContent?.heroSubtitle || 'Преміальний дроп та аксесуари. Оновлення каталогу щотижня.'}
+          {content?.heroSubtitle || 'Преміальний дроп та аксесуари. Оновлення каталогу щотижня.'}
         </p>
         <Link
           to="/catalog"
           className="inline-block bg-white text-black text-xs md:text-sm font-bold uppercase tracking-widest px-8 py-4 rounded-xl hover:bg-zinc-200 transition-all duration-300 transform hover:-translate-y-0.5"
         >
-          {currentContent?.ctaText || 'Перейти до каталогу'}
+          {content?.ctaText || 'Перейти до каталогу'}
         </Link>
       </div>
     </div>
