@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
 import FAQ from '../components/FAQ';
-import type { FaqItem } from '../components/FAQ';
 
 export default function FaqPage() {
-  const [faqItems, setFaqItems] = useState<FaqItem[]>([]);
+  const [faqItems, setFaqItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/data/faq.json')
+    fetch('/data/faq.json', { cache: 'no-store' })
       .then((res) => res.json())
       .then((data) => {
-        setFaqItems(data);
+        setFaqItems(data.faq || []);
         setLoading(false);
       })
       .catch((err) => {
