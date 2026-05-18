@@ -1,0 +1,12 @@
+# Правило редиректа для SPA (React Router), чтобы не было 404 при перезагрузке страниц
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Отключение кэширования для динамических JSON-данных, чтобы админка сразу обновляла сайт
+[[headers]]
+  for = "/data/*.json"
+  [headers.values]
+    Cache-Control = "max-age=0, no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
