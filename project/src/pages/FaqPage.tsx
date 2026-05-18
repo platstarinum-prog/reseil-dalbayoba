@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import FAQ, { FaqItem } from '../components/FAQ';
+import FAQ from '../components/FAQ';
+import type { FaqItem } from '../components/FAQ';
 
 export default function FaqPage() {
   const [faqItems, setFaqItems] = useState<FaqItem[]>([]);
