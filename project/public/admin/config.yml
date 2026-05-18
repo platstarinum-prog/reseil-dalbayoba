@@ -33,21 +33,26 @@ collections:
       - { name: "imageUrl", label: "Фото товару", widget: "image" }
       - { name: "sold", label: "Товар продано?", widget: "boolean", default: false }
 
-  # 2. КОНТЕНТ СТОРІНОК (FILES-КОЛЛЕКЦИЯ)
-  - name: "site_content"
-    label: "Контент сторінок"
+  # 2. ГОЛОВНА СТОРІНКА (ОТДЕЛЬНАЯ КОЛЛЕКЦИЯ)
+  - name: "home_page_collection"
+    label: "Головна сторінка"
     delete: false
     files:
       - name: "home_page"
-        label: "Головна сторінка"
+        label: "Редагувати текст головної"
         file: "public/data/home.json"
         fields:
           - { name: "heroTitle", label: "Головний заголовок", widget: "string" }
           - { name: "heroSubtitle", label: "Підзаголовок сайту", widget: "text" }
           - { name: "ctaText", label: "Текст кнопки", widget: "string" }
 
+  # 3. ВІДГУКИ (ОТДЕЛЬНАЯ КОЛЛЕКЦИЯ)
+  - name: "reviews_collection"
+    label: "Сторінка відгуків"
+    delete: false
+    files:
       - name: "reviews_file"
-        label: "Сторінка відгуків"
+        label: "Список відгуків сайту"
         file: "public/data/reviews.json"
         fields:
           - name: "reviews"
@@ -58,8 +63,13 @@ collections:
               - { name: "item", label: "Товар", widget: "string" }
               - { name: "text", label: "Відгук", widget: "text" }
 
+  # 4. FAQ (ОТДЕЛЬНАЯ КОЛЛЕКЦИЯ)
+  - name: "faq_collection"
+    label: "Сторінка FAQ"
+    delete: false
+    files:
       - name: "faq_file"
-        label: "Сторінка FAQ"
+        label: "Список питань та відповідей"
         file: "public/data/faq.json"
         fields:
           - name: "faq"
