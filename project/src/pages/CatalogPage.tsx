@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import ProductCatalog, { Product } from '../components/ProductCatalog';
+import ProductCatalog from '../components/ProductCatalog';
+import type { Product } from '../components/ProductCatalog';
 
 export default function CatalogPage() {
   const [products, setProducts] = useState<Product[]>([]);
