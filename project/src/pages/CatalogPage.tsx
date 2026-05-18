@@ -1,25 +1,36 @@
-import ProductCatalog from '../components/ProductCatalog';
-import type { Product } from '../components/ProductCatalog';
-import bapeTee from '../data/products/bape-tiger-tee.json';
-import supremeBoxLogo from '../data/products/supreme-box-logo.json';
-import jordan1 from '../data/products/nike-air-jordan-1.json';
-import offWhiteBelt from '../data/products/off-white-belt.json';
-import yeezy700 from '../data/products/yeezy-700.json';
-import palaceJacket from '../data/products/palace-skateboards-jacket.json';
-
-const PRODUCTS: Product[] = [
-  { id: 'bape-tiger-tee', ...bapeTee, category: bapeTee.category as Product['category'] },
-  { id: 'supreme-box-logo', ...supremeBoxLogo, category: supremeBoxLogo.category as Product['category'] },
-  { id: 'nike-air-jordan-1', ...jordan1, category: jordan1.category as Product['category'] },
-  { id: 'off-white-belt', ...offWhiteBelt, category: offWhiteBelt.category as Product['category'] },
-  { id: 'yeezy-700', ...yeezy700, category: yeezy700.category as Product['category'] },
-  { id: 'palace-skateboards-jacket', ...palaceJacket, category: palaceJacket.category as Product['category'] },
-];
+import { useState, useEffect } from 'react';
+import ProductCatalog, { Product } from '../components/ProductCatalog';
 
 export default function CatalogPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/data/products.json')
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Помилка завантаження товарів:', err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-black">
+        <p className="text-zinc-500 font-mono text-xs tracking-widest uppercase animate-pulse">
+          Завантаження каталогу...
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <main className="max-w-6xl mx-auto px-6 pt-24 pb-20">
-      <ProductCatalog products={PRODUCTS} />
-    </main>
+    <div className="max-w-screen-xl mx-auto px-6 pt-24 pb-16">
+      <ProductCatalog products={products} />
+    </div>
   );
 }
