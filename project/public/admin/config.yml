@@ -6,46 +6,46 @@ media_folder: "public/uploads"
 public_folder: "/uploads"
 
 collections:
-  - name: "products"
-    label: "Products"
-    folder: "src/data/products"
-    create: true
-    slug: "{{slug}}"
-    extension: "json"
-    format: "json"
-    fields:
-      - { label: "Name", name: "name", widget: "string" }
-      - { label: "Brand", name: "brand", widget: "string", default: "5am" }
-      - { label: "Price", name: "price", widget: "number", value_type: "int" }
-      - label: "Category"
-        name: "category"
-        widget: "select"
-        options: ["Одяг", "Взуття", "Аксесуари"]
-      - { label: "Sizes", name: "sizes", widget: "string" }
-      - { label: "Image", name: "imageUrl", widget: "image" }
-      - { label: "Seller Telegram", name: "seller_tg", widget: "string" }
-      - { label: "Condition", name: "condition", widget: "string", required: false }
-      - { label: "Sold", name: "sold", widget: "boolean", default: false }
+  - name: "site_content"
+    label: "Контент сайту"
+    delete: false
+    files:
+      - name: "products"
+        label: "Каталог товарів"
+        file: "public/data/products.json"
+        fields:
+          - name: "products"
+            label: "Список товарів"
+            widget: "list"
+            summary: "{{fields.brand}} - {{fields.name}}"
+            fields:
+              - { name: "id", label: "ID (наприклад: item-1)", widget: "string" }
+              - { name: "name", label: "Назва товару", widget: "string" }
+              - { name: "brand", label: "Бренд", widget: "string" }
+              - { name: "price", label: "Ціна (грн)", widget: "number", value_type: "int" }
+              - name: "category"
+                label: "Категорія"
+                widget: "select"
+                options: ["Одяг", "Взуття", "Аксесуари"]
+              - { name: "sizes", label: "Розміри", widget: "string" }
+              - name: "condition"
+                label: "Стан"
+                widget: "select"
+                options:
+                  - { label: "Нові (ВІДМІННИЙ)", value: "Відмінний" }
+                  - { label: "Б/У", value: "Б/У" }
+              - { name: "seller_tg", label: "Telegram менеджера (без @)", widget: "string" }
+              - { name: "imageUrl", label: "Фото товару", widget: "image" }
+              - { name: "sold", label: "Товар продано?", widget: "boolean", default: false }
 
-  - name: "reviews"
-    label: "Reviews"
-    folder: "src/data/reviews"
-    create: true
-    slug: "{{slug}}"
-    extension: "json"
-    format: "json"
-    fields:
-      - { label: "Text", name: "text", widget: "text" }
-      - { label: "Author", name: "author", widget: "string" }
-      - { label: "Item", name: "item", widget: "string" }
-
-  - name: "faq"
-    label: "FAQ"
-    folder: "src/data/faq"
-    create: true
-    slug: "{{slug}}"
-    extension: "json"
-    format: "json"
-    fields:
-      - { label: "Question", name: "question", widget: "string" }
-      - { label: "Answer", name: "answer", widget: "text" }
+      - name: "faq"
+        label: "Сторінка FAQ"
+        file: "public/data/faq.json"
+        fields:
+          - name: "faq"
+            label: "Список питань та відповідей"
+            widget: "list"
+            summary: "{{fields.question}}"
+            fields:
+              - { name: "question", label: "Питання", widget: "string" }
+              - { name: "answer", label: "Відповідь", widget: "text" }
