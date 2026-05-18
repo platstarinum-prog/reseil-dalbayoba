@@ -1,0 +1,51 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "products"
+    label: "Products"
+    folder: "src/data/products"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Brand", name: "brand", widget: "string", default: "5am" }
+      - { label: "Price", name: "price", widget: "number", value_type: "int" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["Одяг", "Взуття", "Аксесуари"]
+      - { label: "Sizes", name: "sizes", widget: "string" }
+      - { label: "Image", name: "imageUrl", widget: "image" }
+      - { label: "Seller Telegram", name: "seller_tg", widget: "string" }
+      - { label: "Condition", name: "condition", widget: "string", required: false }
+      - { label: "Sold", name: "sold", widget: "boolean", default: false }
+
+  - name: "reviews"
+    label: "Reviews"
+    folder: "src/data/reviews"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "Text", name: "text", widget: "text" }
+      - { label: "Author", name: "author", widget: "string" }
+      - { label: "Item", name: "item", widget: "string" }
+
+  - name: "faq"
+    label: "FAQ"
+    folder: "src/data/faq"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "Question", name: "question", widget: "string" }
+      - { label: "Answer", name: "answer", widget: "text" }

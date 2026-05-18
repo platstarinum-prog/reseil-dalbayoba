@@ -1,0 +1,11 @@
+{
+  "name": "box logo hoodie",
+  "brand": "SUPREME",
+  "price": 4200,
+  "category": "Одяг",
+  "sizes": "L",
+  "imageUrl": "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "seller_tg": "@seller2",
+  "condition": "Хороший",
+  "sold": false
+}
