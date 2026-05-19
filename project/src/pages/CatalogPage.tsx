@@ -21,7 +21,7 @@ export default function CatalogPage() {
   return (
     <div className="max-w-screen-xl mx-auto px-6 pt-24 pb-16">
       {products.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 border border-dashed border-zinc-900 rounded-xl">
+        <div className="flex items-center justify-center py-20 border border-dashed border-zinc-900 rounded-xl">
           <p className="text-zinc-600 font-mono text-xs tracking-widest uppercase">
             Каталог порожній. Додайте товари через адмін-панель.
           </p>
