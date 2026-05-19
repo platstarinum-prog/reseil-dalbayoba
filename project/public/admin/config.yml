@@ -5,11 +5,12 @@ backend:
 
 media_folder: "project/public/images/uploads"
 public_folder: "/images/uploads"
+format: "json"
 
 collections:
   # КАТАЛОГ — кожен товар окремий файл
   - name: "products"
-    label: "Каталог"
+    label: "🛒 Каталог"
     folder: "project/src/data/products"
     format: "json"
     extension: "json"
@@ -19,16 +20,21 @@ collections:
       - { label: "Назва", name: "name", widget: "string" }
       - { label: "Бренд", name: "brand", widget: "string" }
       - { label: "Ціна (грн)", name: "price", widget: "number" }
-      - { label: "Категорія", name: "category", widget: "select", options: ["Одяг", "Взуття", "Аксесуари"] }
+      - { 
+          label: "Категорія", 
+          name: "category", 
+          widget: "select", 
+          options: ["Взуття", "Худі", "Світшоти", "Лонги", "Зіпки", "Футболки", "Джинси", "Куртки", "Інше"] 
+        }
       - { label: "Розмір", name: "sizes", widget: "string" }
       - { label: "Фото (URL)", name: "imageUrl", widget: "string" }
       - { label: "Telegram продавця", name: "seller_tg", widget: "string", default: "5am_store_official" }
       - { label: "Стан", name: "condition", widget: "select", options: ["Новий", "Відмінний", "Хороший", "Б/У"] }
       - { label: "Продано", name: "sold", widget: "boolean", default: false }
 
-  # FAQ — кожне питання окремий файл
+  # FAQ
   - name: "faq"
-    label: "FAQ"
+    label: "❓ FAQ"
     folder: "project/src/data/faq"
     format: "json"
     extension: "json"
@@ -38,12 +44,12 @@ collections:
       - { label: "Питання", name: "question", widget: "string" }
       - { label: "Відповідь", name: "answer", widget: "text" }
 
-  # ВІДГУКИ + ГОЛОВНА — файли
+  # НАЛАШТУВАННЯ
   - name: "settings"
-    label: "Налаштування"
+    label: "⚙️ Налаштування"
     files:
       - file: "project/src/data/reviews.json"
-        label: "Відгуки"
+        label: "💬 Відгуки"
         name: "reviews"
         fields:
           - name: "items"
@@ -54,7 +60,7 @@ collections:
               - { label: "Що купив", name: "item", widget: "string" }
               - { label: "Текст відгуку", name: "text", widget: "text" }
       - file: "project/src/data/home.json"
-        label: "Головна сторінка"
+        label: "🏠 Головна сторінка"
         name: "home_page"
         fields:
           - { label: "Заголовок", name: "heroTitle", widget: "string" }
