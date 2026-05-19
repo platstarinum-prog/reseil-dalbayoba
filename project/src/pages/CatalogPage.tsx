@@ -1,31 +1,25 @@
 import { useState } from 'react';
 import ProductCatalog from '../components/ProductCatalog';
 
-// Читаем модули из новой чистой папки live_products
-const modules = import.meta.glob('../data/live_products/*.json', { eager: true }) as Record<string, any>;
+// ИСПРАВЛЕНО: Читаем из реальной папки 'products', которая видна на скриншоте
+const modules = import.meta.glob('../data/products/*.json', { eager: true }) as Record<string, any>;
 
-// Мапим данные, кастуя их к any[], чтобы TS пропустил билд без придирок к структуре
 const loadedProducts = Object.values(modules).map((mod: any) => {
   const data = mod.default ? mod.default : mod;
   
-  // Возвращаем объект, страхуя базовые поля. 
-  // Если твой ProductCatalog ждет поля 'name', 'brand', 'sizes' — подставим безопасные фолбеки.
   return {
     id: String(data.id || Math.random().toString()),
-    name: String(data.name || data.title_ru || 'Без назви'),
+    // Подстраиваем под поля, которые реально есть в твоих файлах
+    name: String(data.name || 'Без назви'),
     brand: String(data.brand || '5AM'),
-    category: String(data.category || 'Одяг'),
     price: Number(data.price || 0),
-    image: String(data.image || '/images/uploads/default.jpg'),
-    sizes: Array.isArray(data.sizes) ? data.sizes : ['S', 'M', 'L', 'XL'], // дефолтные размеры, если в админке пусто
-    inStock: Boolean(data.inStock !== false),
-    // На всякий случай оставляем и мультиязычные поля, если компонент берет их
-    title_ru: String(data.title_ru || data.name || 'Без названия'),
-    title_en: String(data.title_en || 'No title'),
-    description_ru: String(data.description_ru || ''),
-    description_en: String(data.description_en || '')
+    imageUrl: String(data.image || '/images/uploads/default.jpg'),
+    sizes: String(data.sizes || 'S, M, L, XL'),
+    seller_tg: String(data.seller_tg || '5am_store_official'),
+    condition: String(data.condition || 'New'),
+    sold: Boolean(data.sold || false)
   };
-}) as any[]; // Убили ошибку TS, заставив его принять этот массив
+}) as any[];
 
 export default function CatalogPage() {
   const [products] = useState<any[]>(loadedProducts);
@@ -42,13 +36,12 @@ export default function CatalogPage() {
           </div>
           <div className="flex flex-col items-center justify-center py-20 border border-dashed border-zinc-900 rounded-xl">
             <p className="text-zinc-600 font-mono text-xs tracking-widest uppercase">
-              Каталог порожній. Додайте товари через адмін-панель.
+              Каталог порожній.
             </p>
           </div>
         </div>
       ) : (
-        // Передаем массив со всеми возможными полями в твой готовый каталог
-        <ProductCatalog products={products as any} />
+        <ProductCatalog products={products} />
       )}
     </div>
   );
