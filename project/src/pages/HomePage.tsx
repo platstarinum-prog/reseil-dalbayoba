@@ -1,38 +1,17 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+// Импортируем JSON напрямую. 
+// Если файла ещё нет в проекте, создай пустой файл `src/data/home.json` со значением {} внутри
+import homeData from '../data/home.json';
 
 interface HomeContent {
-  heroTitle: string;
-  heroSubtitle: string;
-  ctaText: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
+  ctaText?: string;
 }
 
 export default function HomePage() {
-  const [content, setContent] = useState<HomeContent | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('/data/home.json', { cache: 'no-store' })
-      .then((res) => res.json())
-      .then((data) => {
-        setContent(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Помилка завантаження головної сторінки:', err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-black">
-        <p className="text-zinc-500 font-mono text-xs tracking-widest uppercase animate-pulse">
-          Завантаження...
-        </p>
-      </div>
-    );
-  }
+  // Используем данные из импорта, а если их нет — подставятся дефолтные значения ниже
+  const content: HomeContent = homeData || {};
 
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center text-center px-6 selection:bg-white selection:text-black">
@@ -41,16 +20,16 @@ export default function HomePage() {
           WELCOME TO 5AM
         </p>
         <h1 className="text-white font-black text-5xl md:text-8xl tracking-tighter uppercase leading-none mb-6">
-          {content?.heroTitle || '5AM STORE'}
+          {content.heroTitle || '5AM STORE'}
         </h1>
         <p className="text-zinc-400 text-sm md:text-base font-medium max-w-md mx-auto mb-10 leading-relaxed">
-          {content?.heroSubtitle || 'Преміальний дроп та аксесуари. Оновлення каталогу щотижня.'}
+          {content.heroSubtitle || 'Преміальний дроп та аксесуари. Оновлення каталогу щотижня.'}
         </p>
         <Link
           to="/catalog"
           className="inline-block bg-white text-black text-xs md:text-sm font-bold uppercase tracking-widest px-8 py-4 rounded-xl hover:bg-zinc-200 transition-all duration-300 transform hover:-translate-y-0.5"
         >
-          {content?.ctaText || 'Перейти до каталогу'}
+          {content.ctaText || 'Перейти до каталогу'}
         </Link>
       </div>
     </div>
