@@ -9,26 +9,49 @@ format: "json"
 
 collections:
   - name: "products"
-    label: "🛒 Каталог"
+    label: "Каталог"
     folder: "project/src/data/products"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Название", name: "name", widget: "string" }
+      - { label: "Назва", name: "name", widget: "string" }
       - { label: "Бренд", name: "brand", widget: "string" }
-      - { label: "Цена", name: "price", widget: "number" }
-      - { label: "Категория", name: "category", widget: "string" }
-      - { label: "Размеры (через запятую)", name: "sizes", widget: "string" }
-      - { label: "Фото", name: "imageUrl", widget: "image" }
+      - { label: "Ціна", name: "price", widget: "number" }
+      - { label: "Категорія", name: "category", widget: "string" }
+      - { label: "Розміри", name: "sizes", widget: "string" }
+      - { label: "Фото (URL)", name: "imageUrl", widget: "string" }
       - { label: "Telegram", name: "seller_tg", widget: "string" }
-      - { label: "Состояние", name: "condition", widget: "string" }
-      - { label: "Продано", name: "sold", widget: "boolean" }
+      - { label: "Стан", name: "condition", widget: "string" }
+      - { label: "Продано", name: "sold", widget: "boolean", default: false }
 
   - name: "faq"
-    label: "❓ FAQ"
+    label: "FAQ"
     folder: "project/src/data/faq"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Вопрос", name: "question", widget: "string" }
-      - { label: "Ответ", name: "answer", widget: "text" }
+      - { label: "Питання", name: "question", widget: "string" }
+      - { label: "Відповідь", name: "answer", widget: "text" }
+
+  - name: "settings"
+    label: "Налаштування"
+    files:
+      - file: "project/src/data/reviews.json"
+        label: "Відгуки"
+        name: "reviews"
+        fields:
+          - name: "items"
+            label: "Список відгуків"
+            widget: "list"
+            fields:
+              - { label: "Ім'я", name: "author", widget: "string" }
+              - { label: "Що купив", name: "item", widget: "string" }
+              - { label: "Текст", name: "text", widget: "text" }
+
+      - file: "project/src/data/home.json"
+        label: "Головна сторінка"
+        name: "home_page"
+        fields:
+          - { label: "Заголовок", name: "heroTitle", widget: "string" }
+          - { label: "Підзаголовок", name: "heroSubtitle", widget: "text" }
+          - { label: "Текст кнопки", name: "ctaText", widget: "string" }
