@@ -1,5 +1,18 @@
 import ProductCard from './ProductCard';
-import { Product } from './types'; // Убедись, что тип Product вынесен в отдельный файл
+
+// Вставляем определение типа прямо сюда, чтобы не зависеть от внешних файлов
+interface Product {
+  id: string;
+  name: string;
+  brand: string;
+  price: number;
+  category: string;
+  sizes: string;
+  imageUrl: string;
+  seller_tg: string;
+  condition?: string;
+  sold?: boolean;
+}
 
 interface Props {
   products: Product[];
@@ -8,10 +21,10 @@ interface Props {
 export default function ProductCatalog({ products }: Props) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {products.map(product => (
+      {products.map((product) => (
         <ProductCard
           key={product.id}
-          {...product} // Передаем все свойства разом
+          {...product}
         />
       ))}
     </div>
