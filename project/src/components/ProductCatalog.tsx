@@ -1,7 +1,7 @@
 import ProductCard from './ProductCard';
 
-// Вставляем определение типа прямо сюда, чтобы не зависеть от внешних файлов
-interface Product {
+// Определяем структуру продукта здесь, чтобы не было ошибок импорта
+export interface Product {
   id: string;
   name: string;
   brand: string;
@@ -18,6 +18,8 @@ interface Props {
   products: Product[];
 }
 
+// Теперь этот компонент ТОЛЬКО отображает товары. 
+// Вся логика фильтрации теперь живет в CatalogPage.tsx
 export default function ProductCatalog({ products }: Props) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
