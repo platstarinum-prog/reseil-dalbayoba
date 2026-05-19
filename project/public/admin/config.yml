@@ -5,13 +5,14 @@ backend:
 
 media_folder: "project/public/images/uploads"
 public_folder: "/images/uploads"
-format: "json"
 
 collections:
   # КАТАЛОГ — кожен товар окремий файл
   - name: "products"
     label: "Каталог"
     folder: "project/src/data/products"
+    format: "json"
+    extension: "json"
     create: true
     slug: "{{slug}}"
     fields:
@@ -29,6 +30,8 @@ collections:
   - name: "faq"
     label: "FAQ"
     folder: "project/src/data/faq"
+    format: "json"
+    extension: "json"
     create: true
     slug: "{{slug}}"
     fields:
@@ -50,7 +53,6 @@ collections:
               - { label: "Ім'я автора", name: "author", widget: "string" }
               - { label: "Що купив", name: "item", widget: "string" }
               - { label: "Текст відгуку", name: "text", widget: "text" }
-
       - file: "project/src/data/home.json"
         label: "Головна сторінка"
         name: "home_page"
