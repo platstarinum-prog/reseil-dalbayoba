@@ -1,0 +1,9 @@
+{
+  "id": "test_1",
+  "title_ru": "Тестовый товар",
+  "title_en": "Test Product",
+  "price": 1000,
+  "image": "/images/uploads/default.jpg",
+  "description_ru": "Описание тестового товара",
+  "inStock": true
+}
