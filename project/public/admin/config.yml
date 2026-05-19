@@ -3,66 +3,32 @@ backend:
   repo: platstarinum-prog/reseil-dalbayoba
   branch: main
 
-local_backend: true
-
-# Куда сохранять картинки
 media_folder: "project/public/images/uploads"
 public_folder: "/images/uploads"
-
 format: "json"
 
 collections:
-  # 1. КАТАЛОГ ТОВАРОВ (каждый товар — отдельный файл)
   - name: "products"
-    label: "🛒 Каталог товаров"
+    label: "🛒 Каталог"
     folder: "project/src/data/products"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "ID товара", name: "id", widget: "string" }
-      - { label: "Название товара", name: "name", widget: "string" }
-      - { label: "Бренд", name: "brand", widget: "string", default: "5AM" }
-      - { label: "Цена (грн)", name: "price", widget: "number", value_type: "int" }
-      - { label: "Изображение", name: "image", widget: "image" }
-      - { label: "Размеры (строкой)", name: "sizes", widget: "string", default: "S, M, L, XL" }
-      - { label: "Telegram продавца", name: "seller_tg", widget: "string", default: "5am_store_official" }
-      - { label: "Состояние", name: "condition", widget: "string", default: "New" }
-      - { label: "Продано", name: "sold", widget: "boolean", default: false }
+      - { label: "Название", name: "name", widget: "string" }
+      - { label: "Бренд", name: "brand", widget: "string" }
+      - { label: "Цена", name: "price", widget: "number" }
+      - { label: "Категория", name: "category", widget: "string" }
+      - { label: "Размеры (через запятую)", name: "sizes", widget: "string" }
+      - { label: "Фото", name: "imageUrl", widget: "image" }
+      - { label: "Telegram", name: "seller_tg", widget: "string" }
+      - { label: "Состояние", name: "condition", widget: "string" }
+      - { label: "Продано", name: "sold", widget: "boolean" }
 
-  # 2. FAQ (каждый вопрос — отдельный файл в папке faq)
   - name: "faq"
-    label: "❓ FAQ (Вопросы)"
+    label: "❓ FAQ"
     folder: "project/src/data/faq"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Заголовок вопроса (RU)", name: "question_ru", widget: "string" }
-      - { label: "Ответ (RU)", name: "answer_ru", widget: "text" }
-      - { label: "Заголовок вопроса (UA)", name: "question_en", widget: "string", required: false }
-      - { label: "Ответ (UA)", name: "answer_en", widget: "text", required: false }
-
-  # 3. НАСТРОЙКИ СТРАНИЦ (Отзывы и Главная)
-  - name: "settings"
-    label: "⚙️ Настройки контента"
-    files:
-      # Редактирование отзывов в одном файле reviews.json
-      - file: "project/src/data/reviews.json"
-        label: "💬 Отзывы клиентов"
-        name: "reviews"
-        fields:
-          - name: "items"
-            label: "Список отзывов"
-            widget: "list"
-            fields:
-              - { label: "Имя клиента", name: "author", widget: "string" }
-              - { label: "Что купил", name: "item", widget: "string" }
-              - { label: "Текст отзыва", name: "text", widget: "text" }
-
-      # Редактирование текстов главной страницы в home.json
-      - file: "project/src/data/home.json"
-        label: "🏠 Главная страница"
-        name: "home_page"
-        fields:
-          - { label: "Главный заголовок", name: "heroTitle", widget: "string" }
-          - { label: "Подзаголовок", name: "heroSubtitle", widget: "text" }
-          - { label: "Текст кнопки", name: "ctaText", widget: "string" }
+      - { label: "Вопрос", name: "question", widget: "string" }
+      - { label: "Ответ", name: "answer", widget: "text" }
