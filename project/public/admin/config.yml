@@ -1,20 +1,20 @@
 backend:
   name: git-gateway
-  branch: main # Переименуй в master, если основная ветка репозитория называется так
+  branch: main
 
-local_backend: true # Позволяет тестировать админку локально через прокси-сервер
+local_backend: true
 
-media_folder: "project/public/images/uploads"
+# Чистые пути локального проекта
+media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
-# Формат сохранения файлов по умолчанию
 format: "json"
 
 collections:
-  # 1. КОЛЛЕКЦИЯ ДЛЯ КАТАЛОГА ТОВАРОВ (ПОЛНЫЙ КОНТРОЛЬ)
+  # 1. КАТАЛОГ ТОВАРОВ
   - name: "products"
     label: "Каталог товаров"
-    folder: "project/src/data/live_products"
+    folder: "src/data/products" # строго в твою папку с json-файлами
     create: true
     slug: "{{slug}}"
     fields:
@@ -23,36 +23,16 @@ collections:
       - { label: "Бренд", name: "brand", widget: "string", default: "5AM" }
       - { label: "Цена", name: "price", widget: "number", value_type: "int" }
       - { label: "Изображение товара", name: "image", widget: "image" }
-      - { label: "Размеры (строкой, например: S, M, L)", name: "sizes", widget: "string", default: "S, M, L, XL" }
-      - { label: "Telegram продавца (можно с @ или без)", name: "seller_tg", widget: "string", default: "5am_store_official" }
+      - { label: "Размеры (например: S, M, L)", name: "sizes", widget: "string", default: "S, M, L, XL" }
+      - { label: "Telegram продавца", name: "seller_tg", widget: "string", default: "5am_store_official" }
       - { label: "Состояние вещи", name: "condition", widget: "string", default: "New", required: false }
-      - { label: "Продано (Скрыть кнопку покупки)", name: "sold", widget: "boolean", default: false }
+      - { label: "Продано", name: "sold", widget: "boolean", default: false }
 
-  # 2. ФАЙЛЫ ДЛЯ ОТЗЫВОВ, FAQ И ГЛАВНОЙ СТРАНИЦЫ
+  # 2. НАСТРОЙКИ FAQ
   - name: "data_lists"
     label: "Списки и настройки"
     files:
-      - file: "project/src/data/home.json"
-        label: "Главная страница (Тексты)"
-        name: "home_page"
-        fields:
-          - { label: "Главный заголовок (Hero Title)", name: "heroTitle", widget: "string", default: "5AM STORE" }
-          - { label: "Подзаголовок (Hero Subtitle)", name: "heroSubtitle", widget: "text", default: "Преміальний дроп та аксесуари. Оновлення каталогу щотижня." }
-          - { label: "Текст кнопки (CTA Text)", name: "ctaText", widget: "string", default: "Перейти до каталогу" }
-
-      - file: "project/src/data/reviews.json"
-        label: "Отзывы клиентов"
-        name: "reviews"
-        fields:
-          - name: "items"
-            label: "Список отзывов"
-            widget: "list"
-            fields:
-              - { label: "Имя автора", name: "author", widget: "string" }
-              - { label: "Что купил (Вещь)", name: "item", widget: "string" }
-              - { label: "Отзыв (Текст)", name: "text", widget: "text" }
-
-      - file: "project/src/data/faq.json"
+      - file: "src/data/faq.json"
         label: "Часто задаваемые вопросы (FAQ)"
         name: "faq"
         fields:
