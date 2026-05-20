@@ -3,7 +3,7 @@ backend:
   repo: platstarinum-prog/reseil-dalbayoba
   branch: main
 
-media_folder: "project/public/images/uploads"
+media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 format: "json"
 
@@ -11,7 +11,7 @@ collections:
   # КАТАЛОГ — кожен товар окремий файл
   - name: "products"
     label: "🛒 Каталог"
-    folder: "project/src/data/products"
+    folder: "src/data/products"
     format: "json"
     extension: "json"
     create: true
@@ -35,7 +35,7 @@ collections:
   # FAQ
   - name: "faq"
     label: "❓ FAQ"
-    folder: "project/src/data/faq"
+    folder: "src/data/faq"
     format: "json"
     extension: "json"
     create: true
@@ -48,7 +48,7 @@ collections:
   - name: "settings"
     label: "⚙️ Налаштування"
     files:
-      - file: "project/src/data/reviews.json"
+      - file: "src/data/reviews.json"
         label: "💬 Відгуки"
         name: "reviews"
         fields:
@@ -59,7 +59,7 @@ collections:
               - { label: "Ім'я автора", name: "author", widget: "string" }
               - { label: "Що купив", name: "item", widget: "string" }
               - { label: "Текст відгуку", name: "text", widget: "text" }
-      - file: "project/src/data/home.json"
+      - file: "src/data/home.json"
         label: "🏠 Головна сторінка"
         name: "home_page"
         fields:
