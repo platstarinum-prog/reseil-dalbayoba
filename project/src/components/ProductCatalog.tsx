@@ -1,4 +1,4 @@
-import ProductCard, { Product } from './ProductCard';
+import ProductCard, { type Product } from './ProductCard';
 
 interface CatalogProps {
   products: Product[];
@@ -12,10 +12,7 @@ export default function ProductCatalog({ products }: CatalogProps) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {products.map((product) => (
-        <ProductCard 
-          key={product.id} 
-          {...product} 
-        />
+        <ProductCard key={product.id} {...product} />
       ))}
     </div>
   );
