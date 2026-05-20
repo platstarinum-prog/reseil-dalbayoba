@@ -2,13 +2,10 @@ backend:
   name: git-gateway
   repo: platstarinum-prog/reseil-dalbayoba
   branch: main
-
 media_folder: "project/public/images/uploads"
 public_folder: "/images/uploads"
 format: "json"
-
 collections:
-  # КАТАЛОГ — кожен товар окремий файл
   - name: "products"
     label: "🛒 Каталог"
     folder: "project/src/data/products"
@@ -17,22 +14,20 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
+      - { label: "ID", name: "id", widget: "string", hint: "Унікальний ID, наприклад: nike-air-force-1" }
       - { label: "Назва", name: "name", widget: "string" }
       - { label: "Бренд", name: "brand", widget: "string" }
       - { label: "Ціна (грн)", name: "price", widget: "number" }
-      - { 
-          label: "Категорія", 
-          name: "category", 
-          widget: "select", 
-          options: ["Взуття", "Худі", "Світшоти", "Лонги", "Зіпки", "Футболки", "Джинси", "Куртки", "Інше"] 
-        }
+      - { label: "Опис", name: "description", widget: "text", required: false }
+      - { label: "Категорія", name: "category", widget: "select", options: ["Взуття", "Худі", "Світшоти", "Лонги", "Зіпки", "Футболки", "Джинси", "Куртки", "Інше"] }
       - { label: "Розмір", name: "sizes", widget: "string" }
-      - { label: "Фото (URL)", name: "imageUrl", widget: "string" }
-      - { label: "Telegram продавця", name: "seller_tg", widget: "string", default: "5am_store_official" }
       - { label: "Стан", name: "condition", widget: "select", options: ["Новий", "Відмінний", "Хороший", "Б/У"] }
+      - label: "Фото"
+        name: "images"
+        widget: "list"
+        field: { label: "Фото", name: "src", widget: "image" }
+      - { label: "Telegram продавця", name: "seller_tg", widget: "string", default: "5am_store_official" }
       - { label: "Продано", name: "sold", widget: "boolean", default: false }
-
-  # FAQ
   - name: "faq"
     label: "❓ FAQ"
     folder: "project/src/data/faq"
@@ -43,8 +38,6 @@ collections:
     fields:
       - { label: "Питання", name: "question", widget: "string" }
       - { label: "Відповідь", name: "answer", widget: "text" }
-
-  # НАЛАШТУВАННЯ
   - name: "settings"
     label: "⚙️ Налаштування"
     files:
