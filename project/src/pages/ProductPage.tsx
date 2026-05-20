@@ -1,6 +1,19 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { type Product } from '../components/ProductCard';
+
+interface Product {
+  id: string;
+  name: string;
+  brand: string;
+  price: number;
+  category: string;
+  sizes: string;
+  images: string[];
+  seller_tg?: string;
+  condition?: string;
+  sold?: boolean;
+  description?: string;
+}
 
 const modules = import.meta.glob('../data/products/*.json', { eager: true }) as Record<string, any>;
 const allProducts: Product[] = Object.values(modules).map((mod: any) => {
@@ -32,7 +45,17 @@ export default function ProductPage() {
     );
   }
 
-  const { name, brand, price, sizes, images, seller_tg, condition, sold, description, category } = product;
+  const name = product.name;
+  const brand = product.brand;
+  const price = product.price;
+  const sizes = product.sizes;
+  const images: string[] = Array.isArray(product.images) ? product.images : [];
+  const seller_tg = product.seller_tg;
+  const condition = product.condition;
+  const sold = product.sold;
+  const description = product.description;
+  const category = product.category;
+
   const rawUsername = (seller_tg ?? '').toString().trim().replace(/^@/, '');
   const username = rawUsername || '5am_store_official';
   const telegramUrl = 'https://t.me/' + username;
@@ -50,14 +73,14 @@ export default function ProductPage() {
         <div className="flex flex-col gap-3">
           <div className="aspect-[4/5] bg-zinc-900 rounded-xl overflow-hidden">
             <img
-              src={images?.[activeImg] ?? ''}
+              src={images[activeImg] ?? ''}
               alt={name}
               className="w-full h-full object-cover"
             />
           </div>
-          {images && images.length > 1 && (
+          {images.length > 1 && (
             <div className="flex gap-2 overflow-x-auto">
-              {images.map((src, i) => (
+              {images.map((src: string, i: number) => (
                 <button
                   key={i}
                   onClick={() => setActiveImg(i)}
@@ -76,38 +99,31 @@ export default function ProductPage() {
           <h1 className="text-white font-black text-3xl uppercase leading-tight mb-2">{name}</h1>
           <p className="text-white font-bold text-2xl mb-8">{Number(price).toLocaleString('uk-UA')} <span className="text-zinc-500 text-sm font-normal">грн</span></p>
 
-          {/* Віджети */}
           <div className="flex flex-col gap-4 mb-8">
-
             {condition && (
               <div className="flex items-center justify-between border border-zinc-800 px-4 py-3 rounded-lg">
                 <span className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest">Стан</span>
                 <span className="text-white text-xs font-medium">{conditionLabel[condition] ?? condition}</span>
               </div>
             )}
-
             {sizes && (
               <div className="flex items-center justify-between border border-zinc-800 px-4 py-3 rounded-lg">
                 <span className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest">Розмір</span>
                 <span className="text-white text-xs font-medium">{sizes}</span>
               </div>
             )}
-
             {category && (
               <div className="flex items-center justify-between border border-zinc-800 px-4 py-3 rounded-lg">
                 <span className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest">Категорія</span>
                 <span className="text-white text-xs font-medium">{category}</span>
               </div>
             )}
-
           </div>
 
-          {/* Опис */}
           {description && (
             <p className="text-zinc-400 text-sm leading-relaxed mb-8 border-t border-zinc-800 pt-6">{description}</p>
           )}
 
-          {/* Кнопка */}
           {sold ? (
             <div className="border border-zinc-800 text-zinc-600 text-xs font-mono uppercase px-6 py-4 text-center rounded-lg">
               Продано
