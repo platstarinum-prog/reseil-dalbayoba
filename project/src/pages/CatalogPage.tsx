@@ -1,10 +1,10 @@
 import { useState, useMemo } from 'react';
 import ProductCatalog from '../components/ProductCatalog';
+import { type Product } from '../components/ProductCard';
 
-// Глоб-импорт
 const modules = import.meta.glob('../data/products/*.json', { eager: true }) as Record<string, any>;
 
-const loadedProducts = Object.values(modules).map((mod: any) => {
+const loadedProducts: Product[] = Object.values(modules).map((mod: any) => {
   const data = mod.default ?? mod;
   return {
     ...data,
@@ -14,7 +14,7 @@ const loadedProducts = Object.values(modules).map((mod: any) => {
 });
 
 export default function CatalogPage() {
-  const [products] = useState<any[]>(loadedProducts);
+  const [products] = useState<Product[]>(loadedProducts);
   const [activeCat, setActiveCat] = useState('Всі');
 
   const categories = useMemo(() => {
@@ -44,7 +44,6 @@ export default function CatalogPage() {
           ))}
         </div>
       </div>
-
       <ProductCatalog products={filteredProducts} />
     </div>
   );
