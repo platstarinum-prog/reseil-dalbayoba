@@ -1,0 +1,20 @@
+{
+  "brand": "Hysteric Glamour",
+  "price": 3999,
+  "name": "Лонгслив Hysteric Glamour",
+  "sizes": "M",
+  "seller_tg": "@htnv15",
+  "sold": false,
+  "images": [
+    "/images/uploads/photo_2026-04-25_10-49-51.jpg",
+    "/images/uploads/photo_2026-04-25_10-49-55.jpg",
+    "/images/uploads/photo_2026-04-25_10-49-58.jpg",
+    "/images/uploads/photo_2026-04-25_10-50-03.jpg",
+    "/images/uploads/photo_2026-04-25_10-50-06.jpg",
+    "/images/uploads/photo_2026-04-25_10-50-10.jpg",
+    "/images/uploads/photo_2026-04-25_10-50-13.jpg"
+  ],
+  "id": "333",
+  "condition": "Відмінний",
+  "category": "Лонги"
+}
