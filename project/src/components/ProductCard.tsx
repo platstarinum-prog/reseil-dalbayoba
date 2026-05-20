@@ -1,5 +1,3 @@
-import { type Product } from './ProductCard';
-
 export interface Product {
   id: string;
   name: string;
@@ -46,7 +44,9 @@ export default function ProductCard(product: Product) {
 
         {sold && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/60">
-            <span className="text-white font-mono text-[10px] uppercase border border-white/30 px-3 py-1 rounded-full">Продано</span>
+            <span className="text-white font-mono text-[10px] uppercase border border-white/30 px-3 py-1 rounded-full">
+              Продано
+            </span>
           </div>
         )}
       </div>
@@ -56,7 +56,8 @@ export default function ProductCard(product: Product) {
         <h3 className="text-white font-medium text-sm truncate mb-3">{name}</h3>
         <div className="flex items-center justify-between pt-3 border-t border-zinc-800">
           <span className="text-white font-bold text-sm">
-            {Number(price).toLocaleString('uk-UA')} <span className="text-zinc-500 text-[10px]">грн</span>
+            {Number(price).toLocaleString('uk-UA')}{' '}
+            <span className="text-zinc-500 text-[10px]">грн</span>
           </span>
           <span className="text-zinc-500 font-mono text-[10px]">{sizes}</span>
         </div>
